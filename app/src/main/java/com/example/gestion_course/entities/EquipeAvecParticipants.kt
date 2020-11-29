@@ -3,7 +3,7 @@ package com.example.gestion_course.entities
 import androidx.room.Embedded
 import androidx.room.Relation
 
-class EquipeAvecParticipants (
+data class EquipeAvecParticipants (
     @Embedded val equipe: Equipe,
     @Relation(
         parentColumn = "num_equipe",

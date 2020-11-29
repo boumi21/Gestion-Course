@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Participant (
-    @PrimaryKey(autoGenerate = true) val num_participant: Int,
+    @PrimaryKey(autoGenerate = false) val num_participant: Int,
     val nom_participant: String,
     val niveau_participant: Int,
-    val ordre_passage: Int,
-    val num_equipe_participant: Int
+    val ordre_passage: Int?,
+    val num_equipe_participant: Int?
 )
