@@ -18,10 +18,8 @@ class EquipeActivity : AppCompatActivity() {
         // Get the viewModel
         equipeViewModel = ViewModelProvider(this).get(EquipeViewModel::class.java)
 
-
-
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
 
-        equipeViewModel.createParticipants(2)
+        equipeViewModel.genereEquipes(nbParticipants)
     }
 }

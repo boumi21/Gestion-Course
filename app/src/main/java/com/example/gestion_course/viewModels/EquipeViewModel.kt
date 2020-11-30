@@ -9,17 +9,19 @@ import kotlin.random.Random
 
 class EquipeViewModel : ViewModel() {
 
-    private lateinit var equipeList: MutableList<String>
+    private lateinit var nomEquipeList: MutableList<String>
     private lateinit var prenomList: MutableList<String>
     private var totalNiveau: Int = 0
     private var moyenneNiveauEquipe: Int = 0
     private var moyenneNiveauParticipant: Int = 0
     private var nbTotalParticipants: Int = 0
+    private var nbEquipes: Int = 0
     private var participantList = mutableListOf<Participant>()
+    private var equipeList = mutableListOf<Equipe>()
     private var listParticipantList = mutableListOf<List<Participant>>()
 
     private fun initEquipeList() {
-        equipeList = mutableListOf(
+        nomEquipeList = mutableListOf(
             "Les Belfortains",
             "Les chanceux",
             "Team Voyou",
@@ -31,7 +33,7 @@ class EquipeViewModel : ViewModel() {
             "Team Meat",
             "Les Foufous"
         )
-        equipeList.shuffle()
+        nomEquipeList.shuffle()
     }
 
     private fun initPrenomList() {
@@ -70,16 +72,34 @@ class EquipeViewModel : ViewModel() {
         prenomList.shuffle()
     }
 
+    fun genereEquipes(nbParticipants: Int){
+        nbTotalParticipants = nbParticipants
+        nbEquipes = nbParticipants/3
+        createEquipes(nbParticipants)
+        createParticipants(nbParticipants)
+        getTotalNiveau()
+        getMoyenneNiveauEquipe()
+        getMoyenneNiveauParticipant()
+        sortParticipantParNiveau()
+
+
+        for (i in 1..nbEquipes){
+            fillEquipe()
+        }
+        Log.i("complet", listParticipantList.toString())
+    }
+
     private fun createEquipes(nbParticipants: Int){
         initEquipeList()
-        for (i in 1..nbParticipants){
-            var equipe: Equipe = Equipe(i, equipeList[i-1])
+
+        for (i in 1..nbEquipes){
+            var equipe: Equipe = Equipe(i, nomEquipeList[i-1])
+            equipeList.add(equipe)
         }
     }
 
     fun createParticipants(nbParticipants: Int){
         initPrenomList()
-        nbTotalParticipants = nbParticipants
 
         for (i in 1..nbParticipants){
             var part: Participant = Participant(i, prenomList[i-1], Random.nextInt(1, 100), null, null)
@@ -93,7 +113,7 @@ class EquipeViewModel : ViewModel() {
     }
 
     fun getMoyenneNiveauEquipe(){
-        moyenneNiveauEquipe = totalNiveau/(nbTotalParticipants/3)
+        moyenneNiveauEquipe = totalNiveau/nbEquipes
     }
 
     fun getMoyenneNiveauParticipant(){
@@ -107,17 +127,20 @@ class EquipeViewModel : ViewModel() {
     // Faire cette fonction là autant de fois que le nombre d'équipes
     fun fillEquipe(){
         var equipe = mutableListOf<Participant>()
-        equipe.add(participantList.last())
+        equipe.add(participantList.removeLast())
 
         while (equipe.size < 3){
             var listNiveauEquipe: List<Int> = equipe.map { it.niveau_participant }
             if (equipeFort(listNiveauEquipe.sum())){
-                equipe.add(participantList.first())
+                equipe.add(participantList.removeFirst())
             } else {
-                equipe.add(participantList.last())
+                equipe.add(participantList.removeLast())
             }
         }
         listParticipantList.add(equipe)
+
+        var listNiveauTest: List<Int> = equipe.map { it.niveau_participant }
+        Log.i("Niveau equipe", listNiveauTest.sum().toString())
     }
 
     private fun equipeFort(niveauTotalEquipe: Int): Boolean{
