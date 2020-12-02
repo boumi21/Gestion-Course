@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GestionCourse">
-        <activity android:name=".activities.EquipeActivity"></activity>
+        <activity
+            android:name=".activities.GestionActivity"
+            android:label="@string/title_activity_gestion"
+            android:theme="@style/Theme.GestionCourse.NoActionBar"></activity>
+        <activity android:name=".activities.EquipeActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        button_test.setOnClickListener {
+            val intent = Intent(this, GestionActivity::class.java)
+            startActivity(intent)
+        }
+
         // Set a SeekBar change listener
         seekBar_nbParticipants.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
