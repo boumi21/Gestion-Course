@@ -72,11 +72,11 @@ class EquipeViewModel : ViewModel() {
         prenomList.shuffle()
     }
 
-    fun genereEquipes(nbParticipants: Int){
+    fun genereEquipes(nbParticipants: Int, prenomParticipantManuel: String, niveauParticipantManuel: Int){
         nbTotalParticipants = nbParticipants
         nbEquipes = nbParticipants/3
         createEquipes(nbParticipants)
-        createParticipants(nbParticipants)
+        createParticipants(nbParticipants, prenomParticipantManuel, niveauParticipantManuel)
         getTotalNiveau()
         getMoyenneNiveauEquipe()
         getMoyenneNiveauParticipant()
@@ -98,13 +98,18 @@ class EquipeViewModel : ViewModel() {
         }
     }
 
-    fun createParticipants(nbParticipants: Int){
+    fun createParticipants(nbParticipants: Int, prenomParticipantManuel: String, niveauParticipantManuel: Int){
         initPrenomList()
+        val nbParticipantsGenere = nbParticipants - 1
 
-        for (i in 1..nbParticipants){
-            var part: Participant = Participant(i, prenomList[i-1], Random.nextInt(1, 100), null, null)
+        for (i in 1..nbParticipantsGenere){
+            var part = Participant(i, prenomList[i-1], Random.nextInt(1, 100), null, null)
             participantList.add(part)
         }
+
+        //On ajoute le participant rentré manuellement
+        var part = Participant(nbParticipants, prenomParticipantManuel, niveauParticipantManuel, null, null)
+        participantList.add(part)
     }
 
     fun getTotalNiveau(){

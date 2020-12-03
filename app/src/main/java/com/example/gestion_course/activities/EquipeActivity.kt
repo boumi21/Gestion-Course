@@ -20,11 +20,10 @@ class EquipeActivity : AppCompatActivity() {
         equipeViewModel = ViewModelProvider(this).get(EquipeViewModel::class.java)
 
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
-        val niveauParticipant = intent.getIntExtra("niveauParticipant", 1)
-        val prenomParticipant = intent.getStringExtra("prenomParticipant")
+        val niveauParticipantManuel = intent.getIntExtra("niveauParticipant", 1)
+        val prenomParticipanManuel = intent.getStringExtra("prenomParticipant")
 
-        Log.i("recevement", "nbParticipants : $nbParticipants niveauParticipant : $niveauParticipant  prenomParticipant : $prenomParticipant")
 
-        equipeViewModel.genereEquipes(nbParticipants)
+        equipeViewModel.genereEquipes(nbParticipants, prenomParticipanManuel, niveauParticipantManuel)
     }
 }
