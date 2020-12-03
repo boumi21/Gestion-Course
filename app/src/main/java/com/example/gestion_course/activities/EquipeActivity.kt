@@ -2,6 +2,7 @@ package com.example.gestion_course.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.gestion_course.R
 import com.example.gestion_course.viewModels.EquipeViewModel
@@ -19,6 +20,10 @@ class EquipeActivity : AppCompatActivity() {
         equipeViewModel = ViewModelProvider(this).get(EquipeViewModel::class.java)
 
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
+        val niveauParticipant = intent.getIntExtra("niveauParticipant", 1)
+        val prenomParticipant = intent.getStringExtra("prenomParticipant")
+
+        Log.i("recevement", "nbParticipants : $nbParticipants niveauParticipant : $niveauParticipant  prenomParticipant : $prenomParticipant")
 
         equipeViewModel.genereEquipes(nbParticipants)
     }

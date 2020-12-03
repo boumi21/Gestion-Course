@@ -20,7 +20,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         button_start.setOnClickListener {
-            val intent = Intent(this, EquipeActivity::class.java)
+//            val intent = Intent(this, EquipeActivity::class.java)
+//            intent.putExtra("nbParticipants",nbParticipants)
+//            startActivity(intent)
+
+            val intent = Intent(this, AddParticipantActivity::class.java)
             intent.putExtra("nbParticipants",nbParticipants)
             startActivity(intent)
         }
