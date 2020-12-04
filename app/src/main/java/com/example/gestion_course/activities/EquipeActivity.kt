@@ -52,7 +52,7 @@ class EquipeActivity : AppCompatActivity() {
             cardView.addView(textPrenom1)
             cardView.addView(textPrenom2)
             cardView.addView(textPrenom3)
-            //grid_equipes.addView(card_equipe)
+            grid_equipes.addView(cardView)
         }
     }
 }
