@@ -152,6 +152,10 @@ class EquipeViewModel : ViewModel() {
         return niveauTotalEquipe > moyenneNiveauEquipe
     }
 
+    fun getEquipes(): MutableList<List<Participant>>{
+        return listParticipantList
+    }
+
     //var test: EquipeAvecParticipants = EquipeAvecParticipants()
 
 
