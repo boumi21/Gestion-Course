@@ -156,6 +156,10 @@ class EquipeViewModel : ViewModel() {
         return listParticipantList
     }
 
+    fun getNomEquipes(): MutableList<Equipe>{
+        return equipeList
+    }
+
     //var test: EquipeAvecParticipants = EquipeAvecParticipants()
 
 
