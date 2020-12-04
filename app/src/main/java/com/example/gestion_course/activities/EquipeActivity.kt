@@ -7,9 +7,13 @@ import android.util.Log
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestion_course.R
+import com.example.gestion_course.RecyclerAdapter
+import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.android.synthetic.main.activity_equipe.*
+import kotlinx.android.synthetic.main.activity_equipe_recyclerview.*
 
 class EquipeActivity : AppCompatActivity() {
 
@@ -30,6 +34,14 @@ class EquipeActivity : AppCompatActivity() {
         equipeViewModel.genereEquipes(nbParticipants, prenomParticipanManuel, niveauParticipantManuel)
 
         var listParticipantList = equipeViewModel.getEquipes()
+
+        list_recycler_view.apply {
+            // set a LinearLayoutManager to handle Android
+            // RecyclerView behavior
+            val layoutManager = LinearLayoutManager(null)
+            // set the custom adapter to the RecyclerView
+            val adapter = RecyclerAdapter(listParticipantList[0] as ArrayList<Participant>)
+        }
 
 
         for (i in 1..listParticipantList.size){
