@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
 
+
 class EquipeRecycleViewAdapter(var context: Context, var participantList: MutableList<List<Participant>>, var equipe: MutableList<Equipe>) :
         RecyclerView.Adapter<EquipeRecycleViewAdapter.ItemHolder>() {
+
+    var viewpool : RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -30,16 +35,28 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
 
         holder.nomEquipeText.text = equipe.get(position).nom_equipe
 
-        holder.prenomText1.text = listPart[0].nom_participant
-        holder.niveauText1.text = listPart[0].niveau_participant.toString()
 
-        holder.prenomText2.text = listPart[1].nom_participant
-        holder.niveauText2.text = listPart[1].niveau_participant.toString()
+        // Create layout manager with initial prefetch item count
 
-        holder.prenomText3.text = listPart[2].nom_participant
-        holder.niveauText3.text = listPart[2].niveau_participant.toString()
+        // Create layout manager with initial prefetch item count
+        val layoutManager = LinearLayoutManager(
+                holder.recycleViewEquipeDetail.context,
+                RecyclerView.VERTICAL,
+                false
+        )
 
-        Log.i("le manquant", holder.niveauText1.text.toString())
+        val gridLayoutManager = GridLayoutManager(holder.recycleViewEquipeDetail.context, 3, LinearLayoutManager.VERTICAL, false)
+
+        layoutManager.initialPrefetchItemCount = listPart.size
+
+        // Create sub item view adapter
+
+        // Create sub item view adapter
+        val equipeDetailRecycleViewAdapter = EquipeDetailRecycleViewAdapter(listPart)
+
+        holder.recycleViewEquipeDetail.layoutManager = layoutManager
+        holder.recycleViewEquipeDetail.adapter = equipeDetailRecycleViewAdapter
+        holder.recycleViewEquipeDetail.setRecycledViewPool(viewpool)
 
 //        holder.titles.setOnClickListener {
 //            Toast.makeText(context, charItem.alpha, Toast.LENGTH_LONG).show()
@@ -50,15 +67,7 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var nomEquipeText = itemView.findViewById<TextView>(R.id.text_nomEquipe)
-
-        var prenomText1 = itemView.findViewById<TextView>(R.id.text_prenom1_detail)
-        var niveauText1 = itemView.findViewById<TextView>(R.id.text_niveau1_detail)
-
-        var prenomText2 = itemView.findViewById<TextView>(R.id.text_prenom2_detail)
-        var niveauText2 = itemView.findViewById<TextView>(R.id.text_niveau2_detail)
-
-        var prenomText3 = itemView.findViewById<TextView>(R.id.text_prenom3_detail)
-        var niveauText3 = itemView.findViewById<TextView>(R.id.text_niveau3_detail)
+        var recycleViewEquipeDetail = itemView.findViewById<RecyclerView>(R.id.recyclerview_equipe_detail)
 
     }
 
