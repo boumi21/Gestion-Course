@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
+import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
 
@@ -20,6 +21,7 @@ class EquipeActivity : AppCompatActivity() {
     private var gridLayoutManager: GridLayoutManager? = null
     private var equipeAdapter: EquipeRecycleViewAdapter? = null
     private var listEquipeParticipant= mutableListOf<List<Participant>>()
+    private var listEquipe = mutableListOf<Equipe>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +44,10 @@ class EquipeActivity : AppCompatActivity() {
             listEquipeParticipant.add(listParticipantList[i - 1])
         }
 
-        var listEquipe = equipeViewModel.getNomEquipes()
+        listEquipe = equipeViewModel.getNomEquipes()
 
+        createRecyclerView()
 
-        recyclerView = findViewById(R.id.recyclerview_equipe)
-        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
-        recyclerView?.layoutManager = gridLayoutManager
-        recyclerView?.setHasFixedSize(true)
-        equipeAdapter = EquipeRecycleViewAdapter(applicationContext, listEquipeParticipant!!, listEquipe)
-        recyclerView?.adapter = equipeAdapter
 
 
 
@@ -76,5 +73,14 @@ class EquipeActivity : AppCompatActivity() {
 //            cardView.addView(textPrenom3)
 //            grid_equipes.addView(cardView)
 //        }
+    }
+
+    fun createRecyclerView(){
+        recyclerView = findViewById(R.id.recyclerview_equipe)
+        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+        recyclerView?.layoutManager = gridLayoutManager
+        recyclerView?.setHasFixedSize(true)
+        equipeAdapter = EquipeRecycleViewAdapter(applicationContext, listEquipeParticipant!!, listEquipe)
+        recyclerView?.adapter = equipeAdapter
     }
 }

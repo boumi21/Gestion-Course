@@ -37,19 +37,14 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
 
 
         // Create layout manager with initial prefetch item count
-
-        // Create layout manager with initial prefetch item count
         val layoutManager = LinearLayoutManager(
                 holder.recycleViewEquipeDetail.context,
                 RecyclerView.VERTICAL,
                 false
         )
 
-        val gridLayoutManager = GridLayoutManager(holder.recycleViewEquipeDetail.context, 3, LinearLayoutManager.VERTICAL, false)
-
         layoutManager.initialPrefetchItemCount = listPart.size
 
-        // Create sub item view adapter
 
         // Create sub item view adapter
         val equipeDetailRecycleViewAdapter = EquipeDetailRecycleViewAdapter(listPart)
