@@ -46,4 +46,26 @@ class EquipeDetailRecycleViewAdapter( var participantList: List<Participant>) : 
         var niveau = itemView.findViewById<TextView>(R.id.text_niveau_detail)
 
     }
+
+
+    /**
+     * Function called to swap dragged items
+     */
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        var participantArrayList = participantList.toCollection(ArrayList())
+        Log.i("je bouge", "départ : $fromPosition arrivée : $toPosition")
+        participantArrayList[fromPosition] = participantArrayList.set(toPosition, participantArrayList[fromPosition])
+//        if (fromPosition < toPosition) {
+//            for (i in fromPosition..toPosition - 1) {
+//                participantArrayList[i] = participantArrayList.set(i+1, participantArrayList[i]);
+//            }
+//        } else {
+//            for (i in fromPosition..toPosition + 1) {
+//                participantArrayList[i] = participantArrayList.set(i-1, participantArrayList[i]);
+//            }
+//        }
+
+        notifyItemMoved(fromPosition, toPosition)
+        Log.i("bouge", participantArrayList.toString())
+    }
 }

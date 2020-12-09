@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.entities.Equipe
@@ -52,6 +53,12 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
         holder.recycleViewEquipeDetail.layoutManager = layoutManager
         holder.recycleViewEquipeDetail.adapter = equipeDetailRecycleViewAdapter
         holder.recycleViewEquipeDetail.setRecycledViewPool(viewpool)
+
+        // Setup ItemTouchHelper
+        val callback = DragManageAdapter(equipeDetailRecycleViewAdapter, context,
+                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT))
+        val helper = ItemTouchHelper(callback)
+        helper.attachToRecyclerView(holder.recycleViewEquipeDetail)
 
 //        holder.titles.setOnClickListener {
 //            Toast.makeText(context, charItem.alpha, Toast.LENGTH_LONG).show()

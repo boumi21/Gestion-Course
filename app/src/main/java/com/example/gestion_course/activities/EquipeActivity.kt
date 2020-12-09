@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gestion_course.DragManageAdapter
 import com.example.gestion_course.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
@@ -82,5 +83,8 @@ class EquipeActivity : AppCompatActivity() {
         recyclerView?.setHasFixedSize(true)
         equipeAdapter = EquipeRecycleViewAdapter(applicationContext, listEquipeParticipant!!, listEquipe)
         recyclerView?.adapter = equipeAdapter
+
+
+
     }
 }
