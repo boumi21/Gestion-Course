@@ -1,13 +1,18 @@
 package com.example.gestion_course.viewModels
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.gestion_course.AppDatabase
 import com.example.gestion_course.entities.Equipe
-import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class EquipeViewModel : ViewModel() {
+class EquipeViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var nomEquipeList: MutableList<String>
     private lateinit var prenomList: MutableList<String>
@@ -19,55 +24,56 @@ class EquipeViewModel : ViewModel() {
     private var participantList = mutableListOf<Participant>()
     private var equipeList = mutableListOf<Equipe>()
     private var listParticipantList = mutableListOf<List<Participant>>()
+    var context: Context = getApplication()
 
     private fun initEquipeList() {
         nomEquipeList = mutableListOf(
-            "Les Belfortains",
-            "Les chanceux",
-            "Team Voyou",
-            "Team Fromage",
-            "Les Supers",
-            "BDS UTBM",
-            "Les Guerriers",
-            "Club DJT",
-            "Team Meat",
-            "Les Foufous"
+                "Les Belfortains",
+                "Les chanceux",
+                "Team Voyou",
+                "Team Fromage",
+                "Les Supers",
+                "BDS UTBM",
+                "Les Guerriers",
+                "Club DJT",
+                "Team Meat",
+                "Les Foufous"
         )
         nomEquipeList.shuffle()
     }
 
     private fun initPrenomList() {
         prenomList = mutableListOf(
-            "Sacha",
-            "Marco",
-            "Serge",
-            "Mateao",
-            "Vincent",
-            "Lucas",
-            "Katia",
-            "Sabina",
-            "Marianne",
-            "Constance",
-            "Olivia",
-            "Appolline",
-            "Stevenson",
-            "Fabien",
-            "Erwan",
-            "Kevin",
-            "Killian",
-            "Hedi",
-            "Frederique",
-            "Victoire",
-            "Salome",
-            "Regis",
-            "Remi",
-            "Anthony",
-            "Jordan",
-            "Alida",
-            "Gwen",
-            "Cecilia",
-            "Amelie",
-            "Ayoub"
+                "Sacha",
+                "Marco",
+                "Serge",
+                "Mateao",
+                "Vincent",
+                "Lucas",
+                "Katia",
+                "Sabina",
+                "Marianne",
+                "Constance",
+                "Olivia",
+                "Appolline",
+                "Stevenson",
+                "Fabien",
+                "Erwan",
+                "Kevin",
+                "Killian",
+                "Hedi",
+                "Frederique",
+                "Victoire",
+                "Salome",
+                "Regis",
+                "Remi",
+                "Anthony",
+                "Jordan",
+                "Alida",
+                "Gwen",
+                "Cecilia",
+                "Amelie",
+                "Ayoub"
         )
         prenomList.shuffle()
     }
@@ -93,7 +99,7 @@ class EquipeViewModel : ViewModel() {
         initEquipeList()
 
         for (i in 1..nbEquipes){
-            var equipe: Equipe = Equipe(i, nomEquipeList[i-1])
+            var equipe: Equipe = Equipe(i, nomEquipeList[i - 1])
             equipeList.add(equipe)
         }
     }
@@ -103,7 +109,7 @@ class EquipeViewModel : ViewModel() {
         val nbParticipantsGenere = nbParticipants - 1
 
         for (i in 1..nbParticipantsGenere){
-            var part = Participant(i, prenomList[i-1], Random.nextInt(1, 100), null, null)
+            var part = Participant(i, prenomList[i - 1], Random.nextInt(1, 100), null, null)
             participantList.add(part)
         }
 
@@ -158,6 +164,24 @@ class EquipeViewModel : ViewModel() {
 
     fun getNomEquipes(): MutableList<Equipe>{
         return equipeList
+    }
+
+    private fun getDatabase(): AppDatabase{
+        return AppDatabase.getInstance(context)
+    }
+
+    fun clearDatabase(){
+        val database = getDatabase()
+        database.clearTables()
+    }
+
+
+    fun insertEquipeTest(){
+        val database = getDatabase()
+        viewModelScope.launch {
+            database.equipeDao().insertAll(equipeList[0])
+        }
+
     }
 
     //var test: EquipeAvecParticipants = EquipeAvecParticipants()

@@ -1,5 +1,6 @@
 package com.example.gestion_course.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gestion_course.AppDatabase
 import com.example.gestion_course.DragManageAdapter
 import com.example.gestion_course.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
+import com.example.gestion_course.dao.EquipeAvecParticipantsDAO
 import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
 
@@ -30,12 +34,15 @@ class EquipeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_equipe)
 
 
+
         // Get the viewModel
         equipeViewModel = ViewModelProvider(this).get(EquipeViewModel::class.java)
 
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
         val niveauParticipantManuel = intent.getIntExtra("niveauParticipant", 1)
         val prenomParticipanManuel = intent.getStringExtra("prenomParticipant")
+
+        equipeViewModel.clearDatabase()
 
 
         equipeViewModel.genereEquipes(nbParticipants, prenomParticipanManuel, niveauParticipantManuel)
@@ -46,6 +53,14 @@ class EquipeActivity : AppCompatActivity() {
         }
 
         listEquipe = equipeViewModel.getNomEquipes()
+
+
+
+        equipeViewModel.insertEquipeTest()
+
+
+
+
 
         createRecyclerView()
 
@@ -83,8 +98,5 @@ class EquipeActivity : AppCompatActivity() {
         recyclerView?.setHasFixedSize(true)
         equipeAdapter = EquipeRecycleViewAdapter(applicationContext, listEquipeParticipant!!, listEquipe)
         recyclerView?.adapter = equipeAdapter
-
-
-
     }
 }
