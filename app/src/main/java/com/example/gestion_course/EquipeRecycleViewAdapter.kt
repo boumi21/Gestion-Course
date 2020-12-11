@@ -1,12 +1,14 @@
 package com.example.gestion_course
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.core.view.MotionEventCompat.getActionMasked
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,11 @@ import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
 
 
-class EquipeRecycleViewAdapter(var context: Context, var participantList: MutableList<List<Participant>>, var equipe: MutableList<Equipe>) :
+class EquipeRecycleViewAdapter(
+    var context: Context,
+    var participantList: MutableList<List<Participant>>,
+    var equipe: MutableList<Equipe>
+) :
         RecyclerView.Adapter<EquipeRecycleViewAdapter.ItemHolder>() {
 
     var viewpool : RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
@@ -32,16 +38,17 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
-        val listPart: List<Participant> = participantList.get(position)
+        val listPart: List<Participant> = participantList[position]
+        val niveauEquipe = (listPart.map { it.niveau_participant }).sum()
 
-        holder.nomEquipeText.text = equipe.get(position).nom_equipe
+        holder.nomEquipeText.text = equipe[position].nom_equipe + " (" + niveauEquipe + ")"
 
 
         // Create layout manager with initial prefetch item count
         val layoutManager = LinearLayoutManager(
-                holder.recycleViewEquipeDetail.context,
-                RecyclerView.VERTICAL,
-                false
+            holder.recycleViewEquipeDetail.context,
+            RecyclerView.VERTICAL,
+            false
         )
 
         layoutManager.initialPrefetchItemCount = listPart.size
@@ -50,14 +57,26 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
         // Create sub item view adapter
         val equipeDetailRecycleViewAdapter = EquipeDetailRecycleViewAdapter(context, listPart)
 
+        val mDividerItemDecoration = DividerItemDecoration(
+            holder.recycleViewEquipeDetail.context,
+            layoutManager.orientation
+        )
+        holder.recycleViewEquipeDetail.addItemDecoration(mDividerItemDecoration)
+
         holder.recycleViewEquipeDetail.layoutManager = layoutManager
         holder.recycleViewEquipeDetail.adapter = equipeDetailRecycleViewAdapter
         holder.recycleViewEquipeDetail.setRecycledViewPool(viewpool)
 
+
+
         // Setup ItemTouchHelper
-        val callback = DragManageAdapter(equipeDetailRecycleViewAdapter, context,
-                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.ACTION_STATE_IDLE)
+        val callback = DragManageAdapter(
+            equipeDetailRecycleViewAdapter, context,
+            ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.ACTION_STATE_IDLE
+        )
         val helper = ItemTouchHelper(callback)
+
+
         helper.attachToRecyclerView(holder.recycleViewEquipeDetail)
 
 //        holder.titles.setOnClickListener {
