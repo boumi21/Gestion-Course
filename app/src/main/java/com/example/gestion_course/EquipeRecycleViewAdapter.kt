@@ -48,7 +48,7 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
 
 
         // Create sub item view adapter
-        val equipeDetailRecycleViewAdapter = EquipeDetailRecycleViewAdapter(listPart)
+        val equipeDetailRecycleViewAdapter = EquipeDetailRecycleViewAdapter(context, listPart)
 
         holder.recycleViewEquipeDetail.layoutManager = layoutManager
         holder.recycleViewEquipeDetail.adapter = equipeDetailRecycleViewAdapter

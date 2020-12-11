@@ -8,6 +8,6 @@ data class Participant (
     @PrimaryKey(autoGenerate = false) val num_participant: Int,
     val nom_participant: String,
     val niveau_participant: Int,
-    val ordre_passage: Int?,
+    var ordre_passage: Int?,
     var num_equipe_participant: Int?
 )

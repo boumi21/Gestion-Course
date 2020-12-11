@@ -1,10 +1,8 @@
 package com.example.gestion_course.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.gestion_course.entities.Participant
+
 
 @Dao
 interface ParticipantDao {
@@ -13,6 +11,9 @@ interface ParticipantDao {
 
     @Query("SELECT * FROM participant WHERE num_participant IN (:numParticipant)")
     fun loadAllByIds(numParticipant: IntArray): List<Participant>
+
+    @Update
+    fun updateList(participants: List<Participant?>?): Int
 
     @Insert
     fun insertAll(vararg participants: Participant)

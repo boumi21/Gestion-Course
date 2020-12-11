@@ -1,16 +1,27 @@
 package com.example.gestion_course
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
+import com.example.gestion_course.viewModels.EquipeViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
-class EquipeDetailRecycleViewAdapter( var participantList: List<Participant>) : RecyclerView.Adapter<EquipeDetailRecycleViewAdapter.ItemHolder>() {
+class EquipeDetailRecycleViewAdapter(var context: Context, var participantList: List<Participant>) : RecyclerView.Adapter<EquipeDetailRecycleViewAdapter.ItemHolder>() {
+
+    // Liste des participants à utiliser
+    var participantArrayList = participantList.toCollection(ArrayList())
+    val database = AppDatabase.getInstance(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val viewHolder = LayoutInflater.from(parent.context)
@@ -24,27 +35,16 @@ class EquipeDetailRecycleViewAdapter( var participantList: List<Participant>) : 
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
-
-
         val part: Participant = participantList[position]
 
         holder.prenom.text = part.nom_participant
         holder.niveau.text = part.niveau_participant.toString()
-
-
-
-//        holder.titles.setOnClickListener {
-//            Toast.makeText(context, charItem.alpha, Toast.LENGTH_LONG).show()
-//        }
-
     }
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
         var prenom = itemView.findViewById<TextView>(R.id.text_prenom_detail)
         var niveau = itemView.findViewById<TextView>(R.id.text_niveau_detail)
-
     }
 
 
@@ -52,20 +52,20 @@ class EquipeDetailRecycleViewAdapter( var participantList: List<Participant>) : 
      * Function called to swap dragged items
      */
     fun swapItems(fromPosition: Int, toPosition: Int) {
-        var participantArrayList = participantList.toCollection(ArrayList())
-        Log.i("je bouge", "départ : $fromPosition arrivée : $toPosition")
-        participantArrayList[fromPosition] = participantArrayList.set(toPosition, participantArrayList[fromPosition])
-//        if (fromPosition < toPosition) {
-//            for (i in fromPosition..toPosition - 1) {
-//                participantArrayList[i] = participantArrayList.set(i+1, participantArrayList[i]);
-//            }
-//        } else {
-//            for (i in fromPosition..toPosition + 1) {
-//                participantArrayList[i] = participantArrayList.set(i-1, participantArrayList[i]);
-//            }
-//        }
+
+        //Change l'ordre dans notre liste des participants
+        Collections.swap(participantArrayList, fromPosition, toPosition);
+
+        // On met à jour chaque participant de la liste avec le bon ordre de passage
+        for(i in 1..participantArrayList.size){
+            participantArrayList[i-1].ordre_passage = i
+        }
+
+        // On met à jour la bdd
+        GlobalScope.launch {
+            val test = database.participantDao().updateList(participantArrayList)
+        }
 
         notifyItemMoved(fromPosition, toPosition)
-        Log.i("bouge", participantArrayList.toString())
     }
 }

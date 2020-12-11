@@ -156,6 +156,7 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
         }
         for (i in 1..equipe.size){
             equipe[i-1].num_equipe_participant = numEquipe
+            equipe[i-1].ordre_passage = i
         }
         listParticipantList.add(equipe)
 
@@ -185,21 +186,12 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-    fun insertEquipeTest(){
-        val database = getDatabase()
-        viewModelScope.launch {
-            database.equipeDao().insertAll(equipeList[0])
-        }
-    }
-
     fun insertEquipeAvecParticipants(equipe: Equipe, participants: List<Participant>){
         val database = getDatabase()
         viewModelScope.launch {
             database.equipeDao().insertEquipeAvecParticipants(equipe, participants)
         }
     }
-
-    //var test: EquipeAvecParticipants = EquipeAvecParticipants()
 
 
 }
