@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Equipe (
+data class Equipe (
     @PrimaryKey(autoGenerate = false) val num_equipe: Int,
     val nom_equipe: String,
 )

@@ -9,5 +9,5 @@ data class Participant (
     val nom_participant: String,
     val niveau_participant: Int,
     val ordre_passage: Int?,
-    val num_equipe_participant: Int?
+    var num_equipe_participant: Int?
 )

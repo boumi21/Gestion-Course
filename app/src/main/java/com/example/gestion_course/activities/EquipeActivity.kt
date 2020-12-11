@@ -56,10 +56,6 @@ class EquipeActivity : AppCompatActivity() {
 
 
 
-        equipeViewModel.insertEquipeTest()
-
-
-
 
 
         createRecyclerView()

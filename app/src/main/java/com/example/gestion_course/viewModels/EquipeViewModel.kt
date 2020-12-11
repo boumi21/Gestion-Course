@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gestion_course.AppDatabase
 import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -90,9 +91,14 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
 
 
         for (i in 1..nbEquipes){
-            fillEquipe()
+            fillEquipe(i)
         }
         Log.i("complet", listParticipantList.toString())
+
+        for(i in 1..nbEquipes){
+            insertEquipeAvecParticipants(equipeList[i-1], listParticipantList[i-1])
+
+        }
     }
 
     private fun createEquipes(nbParticipants: Int){
@@ -136,7 +142,7 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     // Faire cette fonction là autant de fois que le nombre d'équipes
-    fun fillEquipe(){
+    fun fillEquipe(numEquipe: Int){
         var equipe = mutableListOf<Participant>()
         equipe.add(participantList.removeLast())
 
@@ -147,6 +153,9 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
             } else {
                 equipe.add(participantList.removeLast())
             }
+        }
+        for (i in 1..equipe.size){
+            equipe[i-1].num_equipe_participant = numEquipe
         }
         listParticipantList.add(equipe)
 
@@ -181,7 +190,13 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             database.equipeDao().insertAll(equipeList[0])
         }
+    }
 
+    fun insertEquipeAvecParticipants(equipe: Equipe, participants: List<Participant>){
+        val database = getDatabase()
+        viewModelScope.launch {
+            database.equipeDao().insertEquipeAvecParticipants(equipe, participants)
+        }
     }
 
     //var test: EquipeAvecParticipants = EquipeAvecParticipants()
