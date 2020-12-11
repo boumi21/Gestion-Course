@@ -56,7 +56,7 @@ class EquipeRecycleViewAdapter(var context: Context, var participantList: Mutabl
 
         // Setup ItemTouchHelper
         val callback = DragManageAdapter(equipeDetailRecycleViewAdapter, context,
-                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT))
+                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.ACTION_STATE_IDLE)
         val helper = ItemTouchHelper(callback)
         helper.attachToRecyclerView(holder.recycleViewEquipeDetail)
 
