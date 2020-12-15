@@ -1,15 +1,17 @@
 package com.example.gestion_course
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 
-class CourseRecycleViewAdapter(var context: Context, var equipeList: List<Equipe>, var listParticipantList: MutableList<List<Participant>>) :
+class CourseRecycleViewAdapter(var context: Context, var listEquipesAvecParticipants: List<EquipeAvecParticipants>) :
     RecyclerView.Adapter<CourseRecycleViewAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(
@@ -22,17 +24,22 @@ class CourseRecycleViewAdapter(var context: Context, var equipeList: List<Equipe
     }
 
     override fun getItemCount(): Int {
-        return listParticipantList.size
+        return listEquipesAvecParticipants.size
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        TODO("Not yet implemented")
+        val equipeAvecParticipants: EquipeAvecParticipants = listEquipesAvecParticipants[position]
+
+        holder.nomEquipe.text = equipeAvecParticipants.equipe.nom_equipe
+        holder.nomParticipant.text = equipeAvecParticipants.participants[0].nom_participant
+
+        Log.i("comment ça", equipeAvecParticipants.toString())
     }
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        //var nomEquipeText = itemView.findViewById<TextView>(R.id.text_nomEquipe)
-        //var recycleViewEquipeDetail = itemView.findViewById<RecyclerView>(R.id.recyclerview_equipe_detail)
+        var nomEquipe = itemView.findViewById<TextView>(R.id.text_equipe_activity_course)
+        var nomParticipant = itemView.findViewById<TextView>(R.id.text_participant_activity_course)
 
     }
 
