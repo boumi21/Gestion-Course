@@ -10,9 +10,9 @@ interface EquipeDao {
     @Query("SELECT * FROM equipe")
     fun getAll(): List<Equipe>
 
-//    @Transaction
-//    @Query("SELECT * FROM equipe")
-//    fun getEquipeAvecParticipants(): List<EquipeAvecParticipants>
+    @Transaction
+    @Query("SELECT * FROM Equipe")
+    fun getEquipeAvecParticipants(): List<EquipeAvecParticipants>
 
 
 //    @Query("SELECT * FROM equipe WHERE num_equipe IN (:numEquipe)")

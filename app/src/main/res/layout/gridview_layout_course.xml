@@ -21,19 +21,28 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_chrono_activity_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chrono" />
+
+        <TextView
             android:id="@+id/text_equipe_activity_course"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Nom équipe" />
 
         <TextView
             android:id="@+id/text_participant_activity_course"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Participant" />
 
         <TextView
             android:id="@+id/text_etape_activity_course"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Etape" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

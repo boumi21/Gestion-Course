@@ -61,7 +61,7 @@ class EquipeActivity : AppCompatActivity() {
         listenStart()
     }
 
-    fun createRecyclerView(){
+    private fun createRecyclerView(){
         recyclerView = findViewById(R.id.recyclerview_equipe)
         gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
