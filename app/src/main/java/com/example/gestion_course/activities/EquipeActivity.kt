@@ -1,6 +1,7 @@
 package com.example.gestion_course.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,8 @@ import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
+import kotlinx.android.synthetic.main.activity_equipe.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class EquipeActivity : AppCompatActivity() {
@@ -32,7 +35,6 @@ class EquipeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_equipe)
-
 
 
         // Get the viewModel
@@ -54,37 +56,9 @@ class EquipeActivity : AppCompatActivity() {
 
         listEquipe = equipeViewModel.getNomEquipes()
 
-
-
-
-
         createRecyclerView()
 
-
-
-
-//        for (i in 1..listParticipantList.size){
-//            val cardView = CardView(this)
-//            cardView.radius = 15f
-//            cardView.setCardBackgroundColor(Color.parseColor("#009688"))
-//            cardView.setContentPadding(36,36,36,36)
-//            //cardView.layoutParams = params
-//            cardView.cardElevation = 30f
-//
-//            val textPrenom1 = TextView(this)
-//            val textPrenom2 = TextView(this)
-//            val textPrenom3 = TextView(this)
-//            textPrenom1.text = listParticipantList[i-1][0].nom_participant
-//            textPrenom2.text = listParticipantList[i-1][1].nom_participant
-//            textPrenom3.text = listParticipantList[i-1][2].nom_participant
-//
-////            val textTest = TextView(this)
-////            textTest.text = "bobo le clown"
-//            cardView.addView(textPrenom1)
-//            cardView.addView(textPrenom2)
-//            cardView.addView(textPrenom3)
-//            grid_equipes.addView(cardView)
-//        }
+        listenStart()
     }
 
     fun createRecyclerView(){
@@ -94,5 +68,13 @@ class EquipeActivity : AppCompatActivity() {
         recyclerView?.setHasFixedSize(true)
         equipeAdapter = EquipeRecycleViewAdapter(applicationContext, listEquipeParticipant!!, listEquipe)
         recyclerView?.adapter = equipeAdapter
+    }
+
+    private fun listenStart(){
+        button_start_race.setOnClickListener {
+            val intent = Intent(this, CourseActivity::class.java)
+            //intent.putExtra("nbParticipants",nbParticipants)
+            startActivity(intent)
+        }
     }
 }
