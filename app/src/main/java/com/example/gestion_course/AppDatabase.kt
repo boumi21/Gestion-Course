@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class), version = 2)
+@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class), version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun equipeDao(): EquipeDao
