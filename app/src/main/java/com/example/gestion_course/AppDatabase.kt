@@ -8,12 +8,13 @@ import com.example.gestion_course.dao.EquipeAvecParticipantsDAO
 import com.example.gestion_course.dao.EquipeDao
 import com.example.gestion_course.dao.ParticipantDao
 import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Equipe::class, Participant::class), version = 1)
+@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class), version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun equipeDao(): EquipeDao
