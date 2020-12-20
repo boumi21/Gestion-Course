@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.CourseRecycleViewAdapter
 import com.example.gestion_course.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
+import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.EquipeAvecParticipants
+import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.CourseViewModel
 import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +25,8 @@ class CourseActivity : AppCompatActivity() {
     private lateinit var courseRecyclerView: RecyclerView
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var courseAdapter: CourseRecycleViewAdapter
-    private lateinit var equipesAvecParticipants: List<EquipeAvecParticipants>
+    private lateinit var listEquipes: List<Equipe>
+    private lateinit var listParticipants: List<Participant>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,8 @@ class CourseActivity : AppCompatActivity() {
 
         runBlocking {
             withContext(Dispatchers.IO) {
-                equipesAvecParticipants = courseViewModel.getEquipesAvecParticipants()
+                listEquipes = courseViewModel.getEquipes()
+                listParticipants = courseViewModel.getParticipants()
             }
         }
 
@@ -52,7 +56,7 @@ class CourseActivity : AppCompatActivity() {
         gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         courseRecyclerView.layoutManager = gridLayoutManager
         courseRecyclerView.setHasFixedSize(true)
-        courseAdapter = CourseRecycleViewAdapter(applicationContext, equipesAvecParticipants)
+        courseAdapter = CourseRecycleViewAdapter(applicationContext, listEquipes, listParticipants)
         courseRecyclerView.adapter = courseAdapter
     }
 }

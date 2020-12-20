@@ -11,7 +11,7 @@ import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 
-class CourseRecycleViewAdapter(var context: Context, var listEquipesAvecParticipants: List<EquipeAvecParticipants>) :
+class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equipe>, var listParticipants: List<Participant>) :
     RecyclerView.Adapter<CourseRecycleViewAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(
@@ -24,16 +24,16 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipesAvecParticip
     }
 
     override fun getItemCount(): Int {
-        return listEquipesAvecParticipants.size
+        return listEquipes.size
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val equipeAvecParticipants: EquipeAvecParticipants = listEquipesAvecParticipants[position]
+        val equipe: Equipe = listEquipes[position]
 
-        holder.nomEquipe.text = equipeAvecParticipants.equipe.nom_equipe
-        holder.nomParticipant.text = equipeAvecParticipants.participants[0].nom_participant
+        holder.nomEquipe.text = equipe.nom_equipe
+        //holder.nomParticipant.text = equipeAvecParticipants.participants[0].nom_participant
 
-        Log.i("comment ça", equipeAvecParticipants.toString())
+        Log.i("comment ça", listParticipants.toString())
     }
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
