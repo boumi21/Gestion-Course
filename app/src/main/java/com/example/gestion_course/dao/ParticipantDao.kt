@@ -9,8 +9,8 @@ interface ParticipantDao {
     @Query("SELECT * FROM participant")
     fun getAll(): List<Participant>
 
-    @Query("SELECT * FROM participant GROUP BY num_equipe_participant")
-    fun getParticipantsParEquipe(): List<Participant>
+    @Query("SELECT * FROM participant WHERE num_equipe_participant = :numEquipe")
+    fun getParticipantsParEquipe(numEquipe: Int): List<Participant>
 
     @Query("SELECT * FROM participant WHERE num_participant IN (:numParticipant)")
     fun loadAllByIds(numParticipant: IntArray): List<Participant>

@@ -11,6 +11,7 @@ import com.example.gestion_course.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.EquipeAvecParticipants
+import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.CourseViewModel
 import com.example.gestion_course.viewModels.EquipeViewModel
@@ -26,7 +27,8 @@ class CourseActivity : AppCompatActivity() {
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var courseAdapter: CourseRecycleViewAdapter
     private lateinit var listEquipes: List<Equipe>
-    private lateinit var listParticipants: List<Participant>
+    private lateinit var listEtapes: List<Etape>
+    private lateinit var listParticipantsList: List<List<Participant>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,8 @@ class CourseActivity : AppCompatActivity() {
         runBlocking {
             withContext(Dispatchers.IO) {
                 listEquipes = courseViewModel.getEquipes()
-                listParticipants = courseViewModel.getParticipants()
+                listEtapes = courseViewModel.getEtapes()
+                listParticipantsList = courseViewModel.getParticipants(listEquipes.size)
             }
         }
 
@@ -56,7 +59,7 @@ class CourseActivity : AppCompatActivity() {
         gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         courseRecyclerView.layoutManager = gridLayoutManager
         courseRecyclerView.setHasFixedSize(true)
-        courseAdapter = CourseRecycleViewAdapter(applicationContext, listEquipes, listParticipants)
+        courseAdapter = CourseRecycleViewAdapter(applicationContext, listEquipes, listParticipantsList, listEtapes)
         courseRecyclerView.adapter = courseAdapter
     }
 }
