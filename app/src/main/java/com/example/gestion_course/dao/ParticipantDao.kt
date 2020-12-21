@@ -18,6 +18,9 @@ interface ParticipantDao {
     @Update
     fun updateList(participants: List<Participant?>?): Int
 
+    @Query("UPDATE Participant SET num_etape_participant = :numEtape WHERE num_participant = :id")
+    fun updateParticipant(id: Int, numEtape: Int)
+
     @Insert
     fun insertAll(vararg participants: Participant)
 
