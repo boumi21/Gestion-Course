@@ -31,10 +31,10 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val equipe: Equipe = listEquipes[position]
         var etape: Etape
-
+        Log.i("listEtapes", listEtapes.toString())
         holder.nomEquipe.text = equipe.nom_equipe
         holder.nomParticipant.text = listParticipantsList[position].find { it.ordre_passage == 1 }!!.nom_participant
-        holder.etapeParticipant.text = listEtapes[listParticipantsList[position].find { it.ordre_passage == 1 }!!.num_etape_participant!!].nom_etape
+        holder.etapeParticipant.text = listEtapes[listParticipantsList[position].find { it.ordre_passage == 1 }!!.num_etape_participant!!-1].nom_etape
 
         Log.i("comment ça", listParticipantsList.toString())
     }

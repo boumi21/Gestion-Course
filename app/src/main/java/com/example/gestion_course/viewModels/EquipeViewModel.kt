@@ -115,12 +115,12 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
         val nbParticipantsGenere = nbParticipants - 1
 
         for (i in 1..nbParticipantsGenere){
-            var part = Participant(i, prenomList[i - 1], Random.nextInt(1, 100), null, null, null)
+            var part = Participant(i, prenomList[i - 1], Random.nextInt(1, 100), null, null, 6)
             participantList.add(part)
         }
 
         //On ajoute le participant rentré manuellement
-        var part = Participant(nbParticipants, prenomParticipantManuel, niveauParticipantManuel, null, null, null)
+        var part = Participant(nbParticipants, prenomParticipantManuel, niveauParticipantManuel, null, null, 6)
         participantList.add(part)
     }
 
@@ -183,6 +183,11 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
     fun clearDatabase(){
         val database = getDatabase()
         database.clearTables()
+    }
+
+    suspend fun insertEtapes(){
+        val database = getDatabase()
+        database.etapeDao().insertAllEtapes()
     }
 
 

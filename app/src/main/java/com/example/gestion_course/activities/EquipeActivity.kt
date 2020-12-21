@@ -20,6 +20,9 @@ import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.android.synthetic.main.activity_equipe.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 
 class EquipeActivity : AppCompatActivity() {
@@ -45,6 +48,13 @@ class EquipeActivity : AppCompatActivity() {
         val prenomParticipanManuel = intent.getStringExtra("prenomParticipant")
 
         equipeViewModel.clearDatabase()
+        runBlocking {
+            withContext(Dispatchers.IO){
+                equipeViewModel.insertEtapes()
+            }
+
+        }
+
 
 
         equipeViewModel.genereEquipes(nbParticipants, prenomParticipanManuel, niveauParticipantManuel)
