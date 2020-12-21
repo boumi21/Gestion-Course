@@ -26,11 +26,10 @@
             android:layout_height="wrap_content"
             android:text="Nom équipe" />
 
-        <TextView
-            android:id="@+id/text_chrono_activity_course"
+        <Chronometer
+            android:id="@+id/chrono_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chrono" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/text_participant_activity_course"
