@@ -15,6 +15,9 @@ interface ParticipantDao {
     @Query("SELECT * FROM participant WHERE num_participant IN (:numParticipant)")
     fun loadAllByIds(numParticipant: IntArray): List<Participant>
 
+    @Query("SELECT * FROM participant WHERE num_participant = :numParticipant")
+    fun getParticipantById(numParticipant: Int): Participant
+
     @Update
     fun updateList(participants: List<Participant?>?): Int
 
