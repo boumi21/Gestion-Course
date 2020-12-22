@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
+import com.example.gestion_course.entities.Temps
 import kotlinx.coroutines.*
 
 class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equipe>, var listParticipantsList: List<List<Participant>>, var listEtapes: List<Etape>) :
@@ -52,15 +53,17 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
                 var participantActif = idParticipantActif?.let { id -> getParticipant(id) }
                 var etapeActive = listEtapes[participantActif!!.num_etape_participant!!-1]
 
-                Log.i("voila",getParticipant(5).toString())
+
                 Log.i("encore",etapeActive.num_etape.toString())
 
+                var temps = holder.chrono.text.toString()
                 holder.chrono.base = SystemClock.elapsedRealtime()
                 holder.chrono.start()
                 if (etapeActive.num_etape == 6){
                     holder.etapeParticipant.text = listEtapes[0].nom_etape
                     updateEtape(idParticipantActif!!, listEtapes[0].num_etape)
                 } else if (etapeActive.num_etape == 5){
+                    insertTemps(Temps(etapeActive.num_etape, idParticipantActif!!, stringToSecondes(temps)))
                     updateEtape(idParticipantActif!!, listEtapes[5].num_etape)
                     numParticipantActif++
                     if (numParticipantActif <= 3){
@@ -75,6 +78,7 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
                     }
 
                 } else {
+                    insertTemps(Temps(etapeActive.num_etape, idParticipantActif!!, stringToSecondes(temps)))
                     updateEtape(idParticipantActif!!, etapeActive.num_etape+1)
                     holder.etapeParticipant.text = listEtapes[etapeActive.num_etape].nom_etape
                 }
@@ -95,7 +99,6 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
 
     private fun updateEtape(id: Int, numEtape: Int){
         // On met à jour la bdd
-        Log.i("numero etape : ",numEtape.toString())
         GlobalScope.launch {
             database.participantDao().updateParticipant(id, numEtape)
         }
@@ -107,6 +110,18 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
                 database.participantDao().getParticipantById(id)
             }
         }
+    }
+
+    private fun insertTemps(temps: Temps){
+        GlobalScope.launch {
+            database.tempsDao().insertTemps(temps)
+        }
+    }
+
+    private fun stringToSecondes(texteTemps: String): Int{
+        var minutes = texteTemps.take(2).toInt()
+        var secondes = texteTemps.takeLast(2).toInt()
+        return (minutes * 60 + secondes)
     }
 
 

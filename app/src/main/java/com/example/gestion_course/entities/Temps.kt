@@ -22,5 +22,5 @@ import androidx.room.Index
 data class Temps (
         val num_etape_temps: Int,
         val num_participant_temps: Int,
-        val time: Long
+        val time: Int
 )

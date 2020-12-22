@@ -4,23 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.gestion_course.dao.EquipeAvecParticipantsDAO
-import com.example.gestion_course.dao.EquipeDao
-import com.example.gestion_course.dao.EtapeDao
-import com.example.gestion_course.dao.ParticipantDao
+import com.example.gestion_course.dao.*
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
+import com.example.gestion_course.entities.Temps
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class), version = 4)
+@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class, Temps::class), version = 5)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun equipeDao(): EquipeDao
     abstract fun participantDao(): ParticipantDao
     abstract fun etapeDao(): EtapeDao
+    abstract fun tempsDao(): TempsDao
     abstract fun equipeAvecParticipantsDao(): EquipeAvecParticipantsDAO
 
     companion object {
