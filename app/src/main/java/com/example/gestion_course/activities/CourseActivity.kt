@@ -1,5 +1,6 @@
 package com.example.gestion_course.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,8 @@ import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.CourseViewModel
 import com.example.gestion_course.viewModels.EquipeViewModel
+import kotlinx.android.synthetic.main.activity_course.*
+import kotlinx.android.synthetic.main.activity_equipe.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -33,6 +36,8 @@ class CourseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course)
+
+        listenStart()
 
         // Get the viewModel
         courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
@@ -61,5 +66,12 @@ class CourseActivity : AppCompatActivity() {
         courseRecyclerView.setHasFixedSize(true)
         courseAdapter = CourseRecycleViewAdapter(applicationContext, listEquipes, listParticipantsList, listEtapes)
         courseRecyclerView.adapter = courseAdapter
+    }
+
+    private fun listenStart(){
+        button_start_stat.setOnClickListener {
+            val intent = Intent(this, StatActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
