@@ -10,7 +10,9 @@ import com.example.gestion_course.AppDatabase
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class EquipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -183,6 +185,16 @@ class EquipeViewModel(application: Application) : AndroidViewModel(application) 
     fun clearDatabase(){
         val database = getDatabase()
         database.clearTables()
+    }
+
+    fun clearTemps(){
+        val database = getDatabase()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                database.tempsDao().deleteData()
+            }
+
+        }
     }
 
     suspend fun insertEtapes(){

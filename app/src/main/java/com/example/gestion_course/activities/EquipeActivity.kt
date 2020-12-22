@@ -87,4 +87,14 @@ class EquipeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        runBlocking {
+            withContext(Dispatchers.IO){
+                equipeViewModel.clearTemps()
+            }
+
+        }
+    }
 }
