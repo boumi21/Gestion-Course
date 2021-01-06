@@ -14,14 +14,6 @@ interface EquipeDao {
     @Query("SELECT * FROM Equipe INNER JOIN Participant WHERE Equipe.num_equipe = Participant.num_equipe_participant GROUP BY num_equipe_participant")
     fun getEquipeAvecParticipants(): List<EquipeAvecParticipants>
 
-    //@Transaction
-    //@Query("SELECT * FROM Equipe, Participant WHERE equipe.num_equipe = participant.num_equipe_participant GROUP BY equipe.num_equipe")
-    //fun getEquipeAvecParticipants(): List<EquipeAvecParticipants>
-
-
-//    @Query("SELECT * FROM equipe WHERE num_equipe IN (:numEquipe)")
-//    fun loadAllByIds(numEquipe: IntArray): List<Equipe>
-
     @Insert
     suspend fun insertAll(vararg equipes: Equipe)
 

@@ -1,25 +1,18 @@
 package com.example.gestion_course.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestion_course.AppDatabase
-import com.example.gestion_course.DragManageAdapter
-import com.example.gestion_course.EquipeRecycleViewAdapter
+import com.example.gestion_course.recycler.EquipeRecycleViewAdapter
 import com.example.gestion_course.R
-import com.example.gestion_course.dao.EquipeAvecParticipantsDAO
 import com.example.gestion_course.entities.Equipe
-import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.android.synthetic.main.activity_equipe.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext

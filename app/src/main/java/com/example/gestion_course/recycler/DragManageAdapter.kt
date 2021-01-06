@@ -1,4 +1,4 @@
-package com.example.gestion_course
+package com.example.gestion_course.recycler
 
 import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper

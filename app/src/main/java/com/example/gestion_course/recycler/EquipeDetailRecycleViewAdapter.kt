@@ -1,17 +1,14 @@
-package com.example.gestion_course
+package com.example.gestion_course.recycler
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.AppDatabase
+import com.example.gestion_course.R
 import com.example.gestion_course.entities.Participant
-import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*

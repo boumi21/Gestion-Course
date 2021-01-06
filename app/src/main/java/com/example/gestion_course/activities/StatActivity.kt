@@ -3,14 +3,11 @@ package com.example.gestion_course.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestion_course.CourseRecycleViewAdapter
 import com.example.gestion_course.R
-import com.example.gestion_course.StatRecycleViewAdapter
+import com.example.gestion_course.recycler.StatRecycleViewAdapter
 import com.example.gestion_course.entities.Participant
-import com.example.gestion_course.viewModels.CourseViewModel
 import com.example.gestion_course.viewModels.StatViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

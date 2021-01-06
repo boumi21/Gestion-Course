@@ -1,14 +1,13 @@
-package com.example.gestion_course
+package com.example.gestion_course.recycler
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Chronometer
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestion_course.entities.Equipe
+import com.example.gestion_course.R
 import com.example.gestion_course.entities.Participant
 
 class StatRecycleViewAdapter(var context: Context, var listParticipants: List<Participant>) : RecyclerView.Adapter<StatRecycleViewAdapter.ItemHolder>() {

@@ -7,19 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestion_course.CourseRecycleViewAdapter
-import com.example.gestion_course.EquipeRecycleViewAdapter
+import com.example.gestion_course.recycler.CourseRecycleViewAdapter
 import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
-import com.example.gestion_course.entities.EquipeAvecParticipants
 import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.viewModels.CourseViewModel
-import com.example.gestion_course.viewModels.EquipeViewModel
 import kotlinx.android.synthetic.main.activity_course.*
-import kotlinx.android.synthetic.main.activity_equipe.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
@@ -50,12 +45,6 @@ class CourseActivity : AppCompatActivity() {
                 listParticipantsList = courseViewModel.getParticipants(listEquipes.size)
             }
         }
-
-
-
-
-
-
         createRecyclerView()
     }
 

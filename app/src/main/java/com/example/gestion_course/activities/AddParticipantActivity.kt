@@ -12,18 +12,11 @@ class AddParticipantActivity : AppCompatActivity() {
 
     var niveauPart: Int = 9
 
-    fun goNextPage(nbParticipants: Int, prenom: String){
-        val intent = Intent(this, EquipeActivity::class.java)
-        intent.putExtra("nbParticipants",nbParticipants)
-        intent.putExtra("prenomParticipant",prenom)
-        intent.putExtra("niveauParticipant",niveauPart)
-        startActivity(intent)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_participant)
 
+        // Récupère le nombre de participants choisi
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
 
 
@@ -36,11 +29,7 @@ class AddParticipantActivity : AppCompatActivity() {
             }
                 editText_prenom.text.isNotEmpty().apply {
             }
-
         }
-
-
-
 
 
         // Set a SeekBar change listener
@@ -63,5 +52,13 @@ class AddParticipantActivity : AppCompatActivity() {
                 //Toast.makeText(applicationContext,"stop tracking",Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun goNextPage(nbParticipants: Int, prenom: String){
+        val intent = Intent(this, EquipeActivity::class.java)
+        intent.putExtra("nbParticipants",nbParticipants)
+        intent.putExtra("prenomParticipant",prenom)
+        intent.putExtra("niveauParticipant",niveauPart)
+        startActivity(intent)
     }
 }

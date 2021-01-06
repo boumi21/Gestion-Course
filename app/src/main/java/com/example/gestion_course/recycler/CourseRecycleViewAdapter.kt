@@ -1,4 +1,4 @@
-package com.example.gestion_course
+package com.example.gestion_course.recycler
 
 import android.content.Context
 import android.os.SystemClock
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gestion_course.AppDatabase
+import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Etape
 import com.example.gestion_course.entities.Participant
@@ -54,7 +56,6 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
                 var etapeActive = listEtapes[participantActif!!.num_etape_participant!!-1]
 
 
-                Log.i("encore",etapeActive.num_etape.toString())
 
                 var temps = holder.chrono.text.toString()
                 holder.chrono.base = SystemClock.elapsedRealtime()

@@ -13,14 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class, Temps::class), version = 5)
+@Database(entities = arrayOf(Equipe::class, Participant::class, Etape::class, Temps::class), version = 6)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun equipeDao(): EquipeDao
     abstract fun participantDao(): ParticipantDao
     abstract fun etapeDao(): EtapeDao
     abstract fun tempsDao(): TempsDao
-    abstract fun equipeAvecParticipantsDao(): EquipeAvecParticipantsDAO
 
     companion object {
         private var instance: AppDatabase? = null

@@ -1,17 +1,15 @@
-package com.example.gestion_course
+package com.example.gestion_course.recycler
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.MotionEventCompat.getActionMasked
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
 
@@ -78,10 +76,6 @@ class EquipeRecycleViewAdapter(
 
 
         helper.attachToRecyclerView(holder.recycleViewEquipeDetail)
-
-//        holder.titles.setOnClickListener {
-//            Toast.makeText(context, charItem.alpha, Toast.LENGTH_LONG).show()
-//        }
 
     }
 

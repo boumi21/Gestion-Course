@@ -17,7 +17,7 @@
         android:id="@+id/button_start_stat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="348dp"
+        android:layout_marginStart="536dp"
         android:layout_marginTop="8dp"
         android:text="Évènement terminé"
         android:textAlignment="center"
