@@ -13,7 +13,9 @@ import com.example.gestion_course.R
 import com.example.gestion_course.entities.Equipe
 import com.example.gestion_course.entities.Participant
 
-
+/**
+ * Classe pour gérér la recyclerview des équipes dans l'écran de réorganisation des équipes
+ */
 class EquipeRecycleViewAdapter(
     var context: Context,
     var participantList: MutableList<List<Participant>>,
@@ -42,7 +44,8 @@ class EquipeRecycleViewAdapter(
         holder.nomEquipeText.text = equipe[position].nom_equipe + " (" + niveauEquipe + ")"
 
 
-        // Create layout manager with initial prefetch item count
+        /****************************************************************************************************************/
+        // Création de la RecyclerView (EquipeDetailRecycleViewAdapter) pour les participants d'une équipe
         val layoutManager = LinearLayoutManager(
             holder.recycleViewEquipeDetail.context,
             RecyclerView.VERTICAL,
@@ -76,6 +79,8 @@ class EquipeRecycleViewAdapter(
 
 
         helper.attachToRecyclerView(holder.recycleViewEquipeDetail)
+
+        /****************************************************************************************************************/
 
     }
 

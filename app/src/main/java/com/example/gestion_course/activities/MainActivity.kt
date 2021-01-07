@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Set a SeekBar change listener
-        seekBar_nbParticipants.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
+        // Gestion de la SeekBar
+        seekBar_nbParticipants.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // Met à jour le nombre de participants quand la valeur de la seekbar change
                 nbParticipants = (progress + 2) * 3

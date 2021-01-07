@@ -38,6 +38,7 @@ class CourseActivity : AppCompatActivity() {
         courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
 
 
+        //Récupère les informations de la bdd
         runBlocking {
             withContext(Dispatchers.IO) {
                 listEquipes = courseViewModel.getEquipes()
@@ -48,6 +49,7 @@ class CourseActivity : AppCompatActivity() {
         createRecyclerView()
     }
 
+    //Créer la RecyclerView (grille des équipes)
     private fun createRecyclerView(){
         courseRecyclerView = findViewById(R.id.recyclerview_course)
         gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)

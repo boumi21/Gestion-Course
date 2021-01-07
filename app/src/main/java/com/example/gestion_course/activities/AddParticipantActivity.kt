@@ -20,19 +20,19 @@ class AddParticipantActivity : AppCompatActivity() {
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
 
 
-
+        // Vérification de la présence d'un nom avant de passer à l'écran suivant
         button_valid.setOnClickListener {
             if(editText_prenom.text.isNotEmpty()){
                 goNextPage(nbParticipants, editText_prenom.text.toString())
             } else {
-                //afficher message
+                //afficher un message d'erreur
             }
                 editText_prenom.text.isNotEmpty().apply {
             }
         }
 
 
-        // Set a SeekBar change listener
+        // Gestion de la SeekBar
         seekBar_niveau.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -53,6 +53,7 @@ class AddParticipantActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun goNextPage(nbParticipants: Int, prenom: String){
         val intent = Intent(this, EquipeActivity::class.java)

@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Classe qui permet d'implémenter le drag and drop pour une RecyclerView
+ */
 class DragManageAdapter(adapter: EquipeDetailRecycleViewAdapter, context: Context, dragDirs: Int, swipeDirs: Int) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
 
     var nameAdapter = adapter
@@ -13,6 +16,7 @@ class DragManageAdapter(adapter: EquipeDetailRecycleViewAdapter, context: Contex
         return true
     }
 
+    //Pas besoin de l'implémenter car pas de swipe (pas besoin de supprimmer un participant)
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         TODO("Not yet implemented")
     }

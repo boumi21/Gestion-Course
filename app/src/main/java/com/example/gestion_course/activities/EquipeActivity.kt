@@ -36,20 +36,21 @@ class EquipeActivity : AppCompatActivity() {
         // Get the viewModel
         equipeViewModel = ViewModelProvider(this).get(EquipeViewModel::class.java)
 
+        // Récupère les informations de l'activité précédente
         val nbParticipants = intent.getIntExtra("nbParticipants", 9)
         val niveauParticipantManuel = intent.getIntExtra("niveauParticipant", 1)
         val prenomParticipanManuel = intent.getStringExtra("prenomParticipant")
 
+        //Nettoie la bdd pour ne pas garder les données d'une course précédente
         equipeViewModel.clearDatabase()
         runBlocking {
             withContext(Dispatchers.IO){
                 equipeViewModel.insertEtapes()
             }
-
         }
 
 
-
+        // Génère les équipes avec l'algorithme
         equipeViewModel.genereEquipes(nbParticipants, prenomParticipanManuel, niveauParticipantManuel)
 
         var listParticipantList = equipeViewModel.getEquipes()
@@ -81,6 +82,7 @@ class EquipeActivity : AppCompatActivity() {
         }
     }
 
+    // Efface les temps lorsque les temps déjà enregistrés si il y en a
     override fun onResume() {
         super.onResume()
         runBlocking {

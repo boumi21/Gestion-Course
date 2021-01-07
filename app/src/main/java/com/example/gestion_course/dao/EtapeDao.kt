@@ -16,6 +16,9 @@ interface EtapeDao {
     @Insert
     fun insertEtapes(etapes: List<Etape>)
 
+    @Query("DELETE FROM Etape")
+    fun clearEtape()
+
     @Query("INSERT INTO Etape VALUES\n" +
             "(1, 'Sprint 1'),\n" +
             "(2, 'Obstacle 1'),\n" +

@@ -17,6 +17,9 @@ import com.example.gestion_course.entities.Participant
 import com.example.gestion_course.entities.Temps
 import kotlinx.coroutines.*
 
+/**
+ * Classe qui gère la RecyclerView pour l'écran de gestion de la course avec les chronos
+ */
 class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equipe>, var listParticipantsList: List<List<Participant>>, var listEtapes: List<Etape>) :
     RecyclerView.Adapter<CourseRecycleViewAdapter.ItemHolder>() {
 
@@ -48,21 +51,26 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
         holder.nomParticipant.text = listParticipantsList[position].find { it.ordre_passage == numParticipantActif }!!.nom_participant
         holder.etapeParticipant.text = listEtapes[listParticipantsList[position].find { it.ordre_passage == numParticipantActif }!!.num_etape_participant!!-1].nom_etape
 
-        //Lorsque l'on clique sur une cardview
+
+        //Lorsque l'on clique sur la cardview d'une équipe, la logique se met en place pour savoir quoi faire (changer d'étape, changer de participant...)
         holder.itemView.setOnClickListener{
             if(isClickable){
                 var idParticipantActif = listParticipantsList[position].find { it.ordre_passage == numParticipantActif }?.num_participant
                 var participantActif = idParticipantActif?.let { id -> getParticipant(id) }
                 var etapeActive = listEtapes[participantActif!!.num_etape_participant!!-1]
 
-
-
+                //Récupération du chrono de l'étape
                 var temps = holder.chrono.text.toString()
+                //On redémarre le chrono
                 holder.chrono.base = SystemClock.elapsedRealtime()
                 holder.chrono.start()
+
+                //Si le participant était au repos, il passe au sprint 1
                 if (etapeActive.num_etape == 6){
                     holder.etapeParticipant.text = listEtapes[0].nom_etape
                     updateEtape(idParticipantActif!!, listEtapes[0].num_etape)
+
+                //Si il était à la dernière étape de son tour, soit c'est au tour du participant suivant, soit c'est terminé si c'était le derneir participant
                 } else if (etapeActive.num_etape == 5){
                     insertTemps(Temps(etapeActive.num_etape, idParticipantActif!!, stringToSecondes(temps)))
                     updateEtape(idParticipantActif!!, listEtapes[5].num_etape)
@@ -78,6 +86,7 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
                         holder.etapeParticipant.text = listEtapes[5].nom_etape
                     }
 
+                // Sinon le aprticipant passe à la prochaine étape
                 } else {
                     insertTemps(Temps(etapeActive.num_etape, idParticipantActif!!, stringToSecondes(temps)))
                     updateEtape(idParticipantActif!!, etapeActive.num_etape+1)
@@ -86,8 +95,8 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
             }
 
         }
-
     }
+
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -119,6 +128,7 @@ class CourseRecycleViewAdapter(var context: Context, var listEquipes: List<Equip
         }
     }
 
+    //Converti le texte du chrono en secondes
     private fun stringToSecondes(texteTemps: String): Int{
         var minutes = texteTemps.take(2).toInt()
         var secondes = texteTemps.takeLast(2).toInt()

@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gestion_course.R
 import com.example.gestion_course.entities.Participant
 
+/**
+ * Classe pour gérer la recyclerview dans l'écran des statistiques (pas terminé)
+ */
 class StatRecycleViewAdapter(var context: Context, var listParticipants: List<Participant>) : RecyclerView.Adapter<StatRecycleViewAdapter.ItemHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,

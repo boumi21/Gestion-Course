@@ -14,6 +14,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * Classe pour gérer la RecyclerView des participants d'une équipe dans l'écran de réorganisation des équipes
+ */
 class EquipeDetailRecycleViewAdapter(var context: Context, var participantList: List<Participant>) : RecyclerView.Adapter<EquipeDetailRecycleViewAdapter.ItemHolder>() {
 
     // Liste des participants à utiliser
@@ -29,6 +32,7 @@ class EquipeDetailRecycleViewAdapter(var context: Context, var participantList: 
     override fun getItemCount(): Int {
         return participantList.size
     }
+
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
@@ -63,6 +67,7 @@ class EquipeDetailRecycleViewAdapter(var context: Context, var participantList: 
             val test = database.participantDao().updateList(participantArrayList)
         }
 
+        //Obligatoire pour permettre à l'utilisateur le drag and drop
         notifyItemMoved(fromPosition, toPosition)
     }
 }

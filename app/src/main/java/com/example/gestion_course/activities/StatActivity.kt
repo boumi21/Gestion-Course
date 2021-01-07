@@ -25,6 +25,7 @@ class StatActivity : AppCompatActivity() {
 
         statViewModel = ViewModelProvider(this).get(StatViewModel::class.java)
 
+        // Récupère les participants
         runBlocking {
             withContext(Dispatchers.IO) {
                 listParticipants = statViewModel.getParticipants()
